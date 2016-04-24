@@ -3,16 +3,7 @@
 let WebSocketServer = require('ws').Server
 let wss = new WebSocketServer({port: 8080})
 let schemas = require('./schemas')
-let Timeout = require('./timeout')
-
-let newClient = (ws) => {
-  return {
-    room: '',
-    name: '',
-    send: (message) => ws.send(message),
-    timeout: new Timeout()
-  }
-}
+let Client = require('./client')
 
 let clients = []
 
@@ -33,7 +24,7 @@ let processMsg = (client, message) => {
 }
 
 wss.on('connection', (ws) => {
-  let client = newClient(ws)
+  let client = new Client(ws)
   clients.push(client)
   ws.on('message', (data) => processMsg(client, JSON.parse(data)))
   ws.on('close', () => clients.splice(clients.indexOf(client)))
