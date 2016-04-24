@@ -1,7 +1,7 @@
 'use strict'
 
 let state = {
-  ws: new WebSocket('ws://localhost:8080'),
+  ws: new window.WebSocket('ws://localhost:8080'),
   name: '',
   room: ''
 }
@@ -9,20 +9,22 @@ let state = {
 state.ws.onmessage = (json) => {
   let message = JSON.parse(json.data)
   message.name.length > 0
-    ? console.log(message.name + ": " + message.content)
-    : console.log("Anonymous: " + message.content)
+    ? console.log(message.name + ': ' + message.content)
+    : console.log('Anonymous: ' + message.content)
 }
 
 let sendJson = (json) => state.ws.send(JSON.stringify(json))
 
 let chat = {
-  changeRoom(room) {
+  changeRoom: (room) => {
     state.room = room
     sendJson({room})
   },
-  changeName(name) {
+  changeName: (name) => {
     state.name = name
     sendJson({name})
   },
   send: (content) => sendJson({content})
 }
+
+chat.changeRoom('default')

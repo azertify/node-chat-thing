@@ -7,33 +7,33 @@ module.exports = {
   isMessage: ajv.compile({
     properties: {
       content: {
-        type: "string",
+        type: 'string',
         minLength: 1,
         maxLength: 500
       }
     },
-    required: ["content"]
+    required: ['content']
   }),
 
   isName: ajv.compile({
     properties: {
       name: {
-        type: "string",
+        type: 'string',
         minLength: 2,
         maxLength: 30
       }
     },
-    required: ["name"]
+    required: ['name']
   }),
 
   isRoom: ajv.compile({
     properties: {
       room: {
-        type: "string",
+        type: 'string',
         minLength: 2,
         maxLength: 30
       }
     },
-    required: ["room"]
-  }),
+    required: ['room']
+  })
 }
