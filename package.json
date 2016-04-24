@@ -1,0 +1,8 @@
+{
+  "name": "bs.io",
+  "version": "0.0.1",
+  "dependencies": {
+    "ajv": "^4.0.4",
+    "ws": "^1.1.0"
+  }
+}
