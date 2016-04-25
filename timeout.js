@@ -8,7 +8,7 @@ module.exports = function Timeout () {
   this.queue = []
   this.timeout = 0
   this.add = () => {
-    let currentTime = (new Date()).getTime()
+    const currentTime = (new Date()).getTime()
     this.queue = this.queue.filter((e) => e < expiry + currentTime)
     if (this.queue.length >= maxMessages) {
       this.timeout = currentTime + timeoutLength

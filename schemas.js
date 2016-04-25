@@ -1,7 +1,7 @@
 'use strict'
 
-let Ajv = require('ajv')
-let ajv = new Ajv()
+const Ajv = require('ajv')
+const ajv = new Ajv()
 
 module.exports = {
   isMessage: ajv.compile({
