@@ -1,6 +1,6 @@
 'use strict'
 
-let Timeout = require('./timeout')
+const Timeout = require('./timeout')
 
 module.exports = function Client (ws) {
   this.room = ''
