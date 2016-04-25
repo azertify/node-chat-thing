@@ -7,12 +7,16 @@ const Client = require('./client')
 
 const clients = []
 
+const removeClient = (client) => clients.splice(clients.indexOf(client))
+
 const send = (room, message) => clients
   .filter((c) => room === c.room)
   .forEach((c) => c.send(JSON.stringify({
     name: c.name,
     content: message
-  })))
+  }), (error) => {
+    if (error) removeClient(c)
+  }))
 
 const processMsg = (client, message) => {
   if (schemas.isMessage(message) && client.timeout.add()) {
@@ -28,6 +32,6 @@ server.on('connection', (ws) => {
   const client = new Client(ws)
   clients.push(client)
   ws.on('message', (data) => processMsg(client, JSON.parse(data)))
-  ws.on('close', () => clients.splice(clients.indexOf(client)))
+  ws.on('close', () => removeClient(client))
   ws.on('error', (e) => console.error(e))
 })
