@@ -1,6 +1,6 @@
 'use strict'
 
-const port = process.env.OPENSHIFT_NODEJS_PORT || 8080
+const port = process.env.NODE_PORT || 8080
 
 const WebSocketServer = require('ws').Server
 const server = new WebSocketServer({port})
