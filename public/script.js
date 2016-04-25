@@ -1,8 +1,8 @@
 'use strict'
 
-const connectionString = (window.location.host)
-  ? 'ws://ws.' + window.location.host
-  : 'ws://localhost:8080'
+const connectionString = (window.location.hostname === 'localhost')
+  ? 'ws://localhost:8080'
+  : 'ws://ws.' + window.location.host
 
 const state = {
   ws: new window.WebSocket(connectionString),

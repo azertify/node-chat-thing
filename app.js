@@ -1,9 +1,13 @@
 'use strict'
 
+const hostname = process.env.NODE_IP || 'localhost'
 const port = process.env.NODE_PORT || 8080
 
+const webserver = require('http').createServer()
+const nodeStatic = require('node-static')
+const fileserver = new nodeStatic.Server('./public')
 const WebSocketServer = require('ws').Server
-const server = new WebSocketServer({port})
+const server = new WebSocketServer({server: webserver})
 const schemas = require('./schemas')
 const Client = require('./client')
 
@@ -37,3 +41,13 @@ server.on('connection', (ws) => {
   ws.on('close', () => removeClient(client))
   ws.on('error', (e) => console.error(e))
 })
+
+webserver.on('request', (req, res) => {
+  if (req.url === '/health') {
+    res.writeHead(200)
+    res.end()
+  } else {
+    fileserver.serve(req, res)
+  }
+})
+webserver.listen(port, hostname)
