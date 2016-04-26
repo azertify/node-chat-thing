@@ -2,7 +2,7 @@
 
 const connectionString = (window.location.hostname === 'localhost')
   ? 'ws://localhost:8080'
-  : 'ws://ws.' + window.location.host
+  : 'ws://' + window.location.host + ':8000'
 
 const state = {
   ws: new window.WebSocket(connectionString),
